@@ -60,6 +60,18 @@ List<Shipment> findByCustomerIdOrderByCreatedAtDesc(
             LocalDateTime endDate
     );
 
+    List<Shipment> findByCustomerIdAndCreatedAtBetweenOrderByCreatedAtDesc(
+            Long customerId,
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    );
+
+    List<Shipment> findByDriverIdAndCreatedAtBetweenOrderByCreatedAtDesc(
+            Long driverId,
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    );
+
     @Query("""
     SELECT s
     FROM Shipment s

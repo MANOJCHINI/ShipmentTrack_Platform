@@ -15,5 +15,9 @@ public class DeliveryVolumeTrendResponse {
 
     private LocalDate date;
 
+    private long volume;
+
+    private long delivered;
+
     private long shipments;
 }

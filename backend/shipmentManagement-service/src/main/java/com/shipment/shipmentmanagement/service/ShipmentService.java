@@ -138,8 +138,7 @@ public class ShipmentService {
         }
 
 //        notificationClient.createNotification(request);
-        System.out.println("Shipment Type = " + savedShipment.getShipmentType());
-        System.out.println("Priority = " + savedShipment.getPriority());
+
         return savedShipment;
     }
 
@@ -169,8 +168,7 @@ public class ShipmentService {
 
         UserProfileResponse currentUser = authClient.getCurrentUser();
 
-        System.out.println("CURRENT USER ID = " + currentUser.getId());
-        System.out.println("CURRENT USER ROLE = [" + currentUser.getRole() + "]");
+
         // ADMIN can see every shipment
         if ("ADMIN".equalsIgnoreCase(currentUser.getRole())) {
             return shipmentRepository.findAllByOrderByCreatedAtDesc();
@@ -609,25 +607,9 @@ public Shipment acceptShipment(Long shipmentId) {
             shipment.getPickedUpAt().plusDays(3)
     );
     shipment = shipmentRepository.save(shipment);
-    System.out.println("Business Client ID = " + shipment.getBusinessClientId());
-    System.out.println("Customer ID = " + shipment.getCustomerId());
-//    sendNotification(
-//            shipment.getBusinessClientId(),
-//            shipment,
-//            "Shipment Accepted",
-//            "Your shipment " + shipment.getTrackingNumber()
-//                    + " has been accepted by an operator."
-//    );
-    System.out.println("Sending BUSINESS notification...");
-//=====================================================================
-//    sendNotification(
-//            shipment.getBusinessClientId(),
-//            shipment,
-//            "Shipment Accepted",
-//            "Your shipment " + shipment.getTrackingNumber()
-//                    + " has been accepted by an operator."
-//    );
 
+
+//=
     sendNotification(
             shipment.getBusinessClientId(),
             shipment,
@@ -636,26 +618,7 @@ public Shipment acceptShipment(Long shipmentId) {
                     + " has been accepted by an operator.",
             "PICKED_UP"
     );
-//    =================================================================
 
-    System.out.println("BUSINESS notification sent.");
-
-//    sendNotification(
-//            shipment.getCustomerId(),
-//            shipment,
-//            "Package Picked Up",
-//            "Your package " + shipment.getTrackingNumber()
-//                    + " has been picked up and is now being processed."
-//    );
-    System.out.println("Sending CUSTOMER notification...");
-
-//    sendNotification(
-//            shipment.getCustomerId(),
-//            shipment,
-//            "Package Picked Up",
-//            "Your package " + shipment.getTrackingNumber()
-//                    + " has been picked up and is now being processed."
-//    );
     sendNotification(
             shipment.getCustomerId(),
             shipment,
@@ -667,10 +630,7 @@ public Shipment acceptShipment(Long shipmentId) {
 
 
 
-//    notificationClient.markShipmentAccepted(
-//            shipment.getId(),
-//            operatorId
-//    );
+
 
 
     notificationClient.markShipmentAccepted(
@@ -705,16 +665,7 @@ public Shipment acceptShipment(Long shipmentId) {
         notificationClient.createNotification(request);
     }
 
-//    public Shipment updateShipmentStatus(
-//            Long shipmentId,
-//            ShipmentStatus status
-//    ) {
-//
-//        Shipment shipment = shipmentRepository.findById(shipmentId)
-//                .orElseThrow(() ->
-//                        new RuntimeException("Shipment not found"));
-//
-//        shipment.setStatus(status);
+
 
     public Shipment updateShipmentStatus(
             Long shipmentId,
@@ -1048,7 +999,10 @@ public Shipment acceptShipment(Long shipmentId) {
                 .stream()
                 .map(shipment -> ShipmentAnalyticsDataResponse.builder()
                         .shipmentId(shipment.getId())
+                        .trackingNumber(shipment.getTrackingNumber())
                         .businessClientId(shipment.getBusinessClientId())
+                        .customerId(shipment.getCustomerId())
+                        .driverId(shipment.getDriverId())
                         .originCity(shipment.getSenderCity())
                         .destinationCity(shipment.getReceiverCity())
                         .status(shipment.getStatus().name())
@@ -1076,7 +1030,70 @@ public Shipment acceptShipment(Long shipmentId) {
                 .stream()
                 .map(shipment -> ShipmentAnalyticsDataResponse.builder()
                         .shipmentId(shipment.getId())
+                        .trackingNumber(shipment.getTrackingNumber())
                         .businessClientId(shipment.getBusinessClientId())
+                        .customerId(shipment.getCustomerId())
+                        .driverId(shipment.getDriverId())
+                        .originCity(shipment.getSenderCity())
+                        .destinationCity(shipment.getReceiverCity())
+                        .status(shipment.getStatus().name())
+                        .createdAt(shipment.getCreatedAt())
+                        .pickedUpAt(shipment.getPickedUpAt())
+                        .estimatedDeliveryAt(shipment.getEstimatedDeliveryAt())
+                        .deliveredAt(shipment.getDeliveredAt())
+                        .build())
+                .toList();
+    }
+
+    public List<ShipmentAnalyticsDataResponse> getCustomerShipmentsForAnalyticsByDateRange(
+            Long customerId,
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    ) {
+
+        return shipmentRepository
+                .findByCustomerIdAndCreatedAtBetweenOrderByCreatedAtDesc(
+                        customerId,
+                        startDate,
+                        endDate
+                )
+                .stream()
+                .map(shipment -> ShipmentAnalyticsDataResponse.builder()
+                        .shipmentId(shipment.getId())
+                        .trackingNumber(shipment.getTrackingNumber())
+                        .businessClientId(shipment.getBusinessClientId())
+                        .customerId(shipment.getCustomerId())
+                        .driverId(shipment.getDriverId())
+                        .originCity(shipment.getSenderCity())
+                        .destinationCity(shipment.getReceiverCity())
+                        .status(shipment.getStatus().name())
+                        .createdAt(shipment.getCreatedAt())
+                        .pickedUpAt(shipment.getPickedUpAt())
+                        .estimatedDeliveryAt(shipment.getEstimatedDeliveryAt())
+                        .deliveredAt(shipment.getDeliveredAt())
+                        .build())
+                .toList();
+    }
+
+    public List<ShipmentAnalyticsDataResponse> getDriverShipmentsForAnalyticsByDateRange(
+            Long driverId,
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    ) {
+
+        return shipmentRepository
+                .findByDriverIdAndCreatedAtBetweenOrderByCreatedAtDesc(
+                        driverId,
+                        startDate,
+                        endDate
+                )
+                .stream()
+                .map(shipment -> ShipmentAnalyticsDataResponse.builder()
+                        .shipmentId(shipment.getId())
+                        .trackingNumber(shipment.getTrackingNumber())
+                        .businessClientId(shipment.getBusinessClientId())
+                        .customerId(shipment.getCustomerId())
+                        .driverId(shipment.getDriverId())
                         .originCity(shipment.getSenderCity())
                         .destinationCity(shipment.getReceiverCity())
                         .status(shipment.getStatus().name())

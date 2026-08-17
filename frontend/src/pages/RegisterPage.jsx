@@ -334,12 +334,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
                   >
                     Logistics Operator (Driver)
                   </option>
-                  <option
-                    value="SUPPORT_AGENT"
-                    className="bg-slate-900 text-white"
-                  >
-                    Support Agent
-                  </option>
+                  
                 </select>
               </div>
             </div>

@@ -62,11 +62,6 @@ public class NotificationService {
             if ("CUSTOMER".equals(user.getRole())) {
 
 
-                System.out.println("=================================");
-                System.out.println("Event Type = " + saved.getEventType());
-                System.out.println("Title = " + saved.getTitle());
-                System.out.println("User = " + user.getEmail());
-                System.out.println("=================================");
 
                 String templateName = null;
                 String subject = null;
@@ -156,9 +151,9 @@ public class NotificationService {
                                 subject,
                                 html);
 
-                        System.out.println("EMAIL SENT SUCCESSFULLY");
+                       
                     } catch (Exception e) {
-                        System.out.println("EMAIL FAILED");
+                       
                         e.printStackTrace();
                     }
                 }

@@ -218,6 +218,42 @@ public List<Shipment> getMyCustomerShipments() {
         );
     }
 
+    @GetMapping("/analytics/customer/{customerId}/shipments/range")
+    public List<ShipmentAnalyticsDataResponse> getCustomerShipmentsForAnalyticsByDateRange(
+            @PathVariable Long customerId,
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate
+    ) {
+        return shipmentService.getCustomerShipmentsForAnalyticsByDateRange(
+                customerId,
+                startDate,
+                endDate
+        );
+    }
+
+    @GetMapping("/analytics/driver/{driverId}/shipments/range")
+    public List<ShipmentAnalyticsDataResponse> getDriverShipmentsForAnalyticsByDateRange(
+            @PathVariable Long driverId,
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate
+    ) {
+        return shipmentService.getDriverShipmentsForAnalyticsByDateRange(
+                driverId,
+                startDate,
+                endDate
+        );
+    }
+
     @PostMapping("/{id}/customer-cancel")
     public Shipment cancelShipmentByCustomer(
             @PathVariable Long id,

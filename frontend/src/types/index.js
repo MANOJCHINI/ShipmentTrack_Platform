@@ -1,17 +1,23 @@
 export const ROLE_LABELS = {
-  admin: "Administrator",
-  operator: "LOGISTIC_OPERATOR",
-  business: "BUSINESS_CLIENT",
+  admin: "ADMINISTRATOR",
+  operator: "LOGISTICS OPERATOR",
+  business: "BUSINESS CLIENT",
   customer: "CUSTOMER",
-  support: "SUPPORT_AGENT",
+  // support: "SUPPORT AGENT",
+
+  // Actual values returned by the API
+  business_client: "BUSINESS CLIENT",
+  logistics_operator: "LOGISTICS OPERATOR",
+  customer: "CUSTOMER",
+  // support_agent: "SUPPORT AGENT",
 };
 
 export const ROLE_DESCRIPTIONS = {
   admin: "Manage platform, users, security, monitoring & audits",
   operator: "Delivery personnel responsible for shipment execution",
-  business: "Company client that sends goods through the platform",
+  business_client: "Company client that sends goods through the platform",
   customer: "Track your packages & get real-time delivery updates",
-  support: "Assist customers and investigate shipment issues",
+  // support_agent: "Assist customers and investigate shipment issues",
 };
 export const STATUS_META = {
   CREATED: {

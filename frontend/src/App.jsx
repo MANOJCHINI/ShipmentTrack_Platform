@@ -14,12 +14,11 @@ import { ShipmentDetailPage } from "@/pages/shipment-detail";
 
 import { AnalyticsPage } from "@/pages/analytics";
 import { NotificationsPage } from "@/pages/notifications";
-import { SettingsPage } from "@/pages/settings";
+
 import { ProfilePage } from "@/pages/profile";
 import { TeamPage } from "@/pages/team";
 
-import { TicketsPage } from "@/pages/tickets";
-import { TicketDetailPage } from "@/pages/ticket-detail";
+
 
 import { NotFoundPage } from "@/pages/not-found";
 
@@ -29,6 +28,7 @@ import { ReportsPage } from "@/pages/reports";
 
 
 
+import { DeliveryReportsPage } from "@/pages/delivery-reports";
 import { CreateShipmentPage } from "@/pages/create-shipment";
 
 import { ShipmentHistoryPage } from "@/pages/shipment-history";
@@ -40,7 +40,7 @@ import AdminDashboard from "./pages/dashboards/admin-dashboard";
 import CustomerDashboard from "./pages/dashboards/customer-dashboard";
 import BusinessDashboard from "./pages/dashboards/business-dashboard";
 import OperatorDashboard from "./pages/dashboards/operator-dashboard";
-import SupportDashboard from "./pages/dashboards/support-dashboard";
+
 import OperatorNavigationPage from "@/pages/navigation";
 import CustomerPodUploadPage from "@/pages/customer-pod-upload";
 import ResetPasswordPage from "@/pages/reset-password";
@@ -83,10 +83,7 @@ export default function App() {
                   path="logistics_operator/dashboard"
                   element={<OperatorDashboard />}
                 />
-                <Route
-                  path="support_agent/dashboard"
-                  element={<SupportDashboard />}
-                />
+                
 
                 <Route path="shipments" element={<ShipmentsPage />} />
                 <Route path="shipments/:id" element={<ShipmentDetailPage />} />
@@ -103,16 +100,16 @@ export default function App() {
 
                 <Route path="analytics" element={<AnalyticsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />
-                <Route path="settings" element={<SettingsPage />} />
+                
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="team" element={<TeamPage />} />
                
-                <Route path="tickets" element={<TicketsPage />} />
-                <Route path="tickets/:id" element={<TicketDetailPage />} />
+                
 
                 <Route path="routes" element={<RouteManagementPage />} />
                 <Route path="pod" element={<PodPage />} />
                 <Route path="reports" element={<ReportsPage />} />
+                <Route path="delivery-reports" element={<DeliveryReportsPage />} />
                 
                 <Route
                   path="create-shipment"

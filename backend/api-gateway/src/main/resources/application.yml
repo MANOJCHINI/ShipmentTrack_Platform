@@ -73,6 +73,11 @@ spring:
           predicates:
             - Path=/api/analytics/**
 
+        - id: delivery-reports-service
+          uri: lb://DELIVERY-REPORTS-SERVICE
+          predicates:
+            - Path=/api/delivery-reports/**
+
 jwt:
   secret: ${SHIPTRACK_JWT_SECRET}
   expiration: 86400000

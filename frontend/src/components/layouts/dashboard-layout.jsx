@@ -7,7 +7,7 @@ import { Logo } from "@/components/shared/logo";
 import { cn, initials } from "@/lib/utils";
 import {
   useNotifications,
-  useTickets,
+ 
   usePodRecords,
 } from "@/lib/hooks";
 import {
@@ -160,18 +160,20 @@ function SidebarContent({ sections, onNavigate }) {
 }
 
 function NavBadge({ type }) {
-  const tickets = useTickets();
+ 
   const notifications = useNotifications();
   const pod = usePodRecords();
 
   let count = 0;
   if (type === "shipments") {
     count = 0;
-  } else if (type === "tickets") {
-    count =
-      tickets.data?.filter((t) => ["open", "in_progress"].includes(t.status))
-        .length ?? 0;
-  } else if (type === "pod") {
+  }
+  // else if (type === "tickets") {
+  //   count =
+  //     tickets.data?.filter((t) => ["open", "in_progress"].includes(t.status))
+  //       .length ?? 0;
+  // }
+  else if (type === "pod") {
     count =
       pod.data?.filter((p) => p.status === "pending" || p.status === "missing")
         .length ?? 0;
@@ -346,10 +348,7 @@ function Topbar({ onMenuClick }) {
               <UserIcon className="mr-2 h-4 w-4 text-muted-foreground" />
               Profile
             </DropdownMenuItem>
-            {/* <DropdownMenuItem onClick={() => navigate("/app/settings")} className="text-xs font-medium cursor-pointer">
-              <Settings className="mr-2 h-4 w-4 text-muted-foreground" />
-              Settings
-            </DropdownMenuItem> */}
+            
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-xs font-semibold text-destructive focus:text-destructive cursor-pointer"

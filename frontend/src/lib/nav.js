@@ -30,7 +30,7 @@ export const NAV_BY_ROLE = {
     {
       label: "Command Center",
       items: [
-        // changes done here to section add role like admin
+       
         {
           label: "Dashboard",
           to: "/app/admin/dashboard",
@@ -38,6 +38,7 @@ export const NAV_BY_ROLE = {
         },
 
         { label: "Analytics", to: "/app/analytics", icon: BarChart3 },
+        { label: "Delivery Reports", to: "/app/delivery-reports", icon: FileText },
       ],
     },
     {
@@ -82,6 +83,11 @@ export const NAV_BY_ROLE = {
           icon: Package,
           badge: "shipments",
         },
+        {
+          label: "Delivery Reports",
+          to: "/app/delivery-reports",
+          icon: FileText,
+        },
       ],
     },
     {
@@ -105,6 +111,7 @@ export const NAV_BY_ROLE = {
           icon: LayoutDashboard,
         },
         { label: "Analytics", to: "/app/analytics", icon: BarChart3 },
+        { label: "Delivery Reports", to: "/app/delivery-reports", icon: FileText },
       ],
     },
     {
@@ -139,12 +146,13 @@ export const NAV_BY_ROLE = {
         },
 
         { label: "My Deliveries", to: "/app/deliveries", icon: Package },
+        { label: "Delivery Reports", to: "/app/delivery-reports", icon: FileText },
         {
           label: "Notifications",
           to: "/app/notifications",
           icon: MessageSquare,
         },
-        { label: "Profile", to: "/app/profile", icon: User },
+        
         {
           label: "Proof of Delivery",
           to: "/app/pod",
@@ -154,17 +162,7 @@ export const NAV_BY_ROLE = {
         { label: "Route Management", to: "/app/routes", icon: Route },
       ],
     },
-    {
-      label: "Support",
-      items: [
-        {
-          label: "Help Center",
-          to: "/app/tickets",
-          icon: LifeBuoy,
-          badge: "tickets",
-        },
-      ],
-    },
+    
   ],
   support_agent: [
     {
@@ -190,10 +188,7 @@ export const NAV_BY_ROLE = {
         ,
       ],
     },
-    // {
-    //   label: "Account",
-    //   items: [{ label: "Settings", to: "/app/settings", icon: Settings }],
-    // },
+    
   ],
 };
 
@@ -214,14 +209,14 @@ export const PAGE_ACCESS = {
   "/app/customer/dashboard": ["customer"],
   "/app/business_client/dashboard": ["business_client"],
   "/app/logistics_operator/dashboard": ["logistics_operator"],
-  "/app/support_agent/dashboard": ["support_agent"],
+  
   "/app/analytics": ["admin", "business_client"],
   "/app/shipments": [
     "admin",
     "logistics_operator",
     "business_client",
     "customer",
-    "support_agent",
+    
   ],
 
   // shared pages
@@ -232,33 +227,33 @@ export const PAGE_ACCESS = {
   "/app/live-drivers": ["admin"],
   "/app/team": ["admin"],
   "/app/roles": ["admin"],
-  "/app/tickets": ["admin", "customer", "support_agent"],
+  "/app/tickets": ["admin", "customer"],
   
-  // "/app/settings": [
-  //   "admin",
-  //   "logistics_operator",
-  //   "business_client",
-  //   "customer",
-  //   "support_agent",
-  // ],
+  
   "/app/profile": [
     "admin",
     "logistics_operator",
     "business_client",
     "customer",
-    "support_agent",
+    
   ],
   "/app/notifications": [
-    // "admin",
+    
     "logistics_operator",
     "business_client",
     "customer",
-    "support_agent",
+    
   ],
   "/app/eta-prediction": ["admin"],
   "/app/routes": ["admin", "business_client", "customer"],
   "/app/pod": ["admin", "logistics_operator", "business_client", "customer"],
   "/app/reports": ["admin"],
+  "/app/delivery-reports": [
+    "admin",
+    "business_client",
+    "customer",
+    "logistics_operator",
+  ],
   "/app/system-monitoring": ["admin"],
   "/app/audit-logs": ["admin"],
   "/app/create-shipment": ["business_client"],
@@ -273,8 +268,7 @@ export function canAccess(path, role) {
   if (!allowed) {
     if (path.startsWith("/app/shipments/"))
       return PAGE_ACCESS["/app/shipments"].includes(role);
-    if (path.startsWith("/app/tickets/"))
-      return PAGE_ACCESS["/app/tickets"].includes(role);
+    
     return true;
   }
   return allowed.includes(role);

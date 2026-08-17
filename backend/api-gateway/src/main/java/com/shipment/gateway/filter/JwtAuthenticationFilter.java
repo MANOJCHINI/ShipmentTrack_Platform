@@ -63,8 +63,7 @@ private static final List<String> PUBLIC_ENDPOINTS = List.of(
                 .getHeaders()
                 .getFirst(HttpHeaders.AUTHORIZATION);
 
-        System.out.println("PATH = " + path);
-        System.out.println("AUTH HEADER = " + authHeader);
+       
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 
@@ -86,7 +85,7 @@ private static final List<String> PUBLIC_ENDPOINTS = List.of(
                     .setComplete();
         }
 
-        System.out.println("Forwarding request to service: " + path);
+        
         return chain.filter(exchange);
     }
 

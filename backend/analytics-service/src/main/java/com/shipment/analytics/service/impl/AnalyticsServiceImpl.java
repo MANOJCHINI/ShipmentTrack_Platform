@@ -39,11 +39,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     private final ShipmentClient shipmentClient;
 
-//    @Override
-//    public DashboardAnalyticsResponse getAdminDashboard() {
-//
-//        List<ShipmentAnalyticsDataResponse> shipments =
-//                shipmentClient.getAllShipmentsForAnalytics();
+
 
     @Override
     public DashboardAnalyticsResponse getAdminDashboard(
@@ -79,50 +75,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
                 .deliveryVolumeTrend(getDeliveryVolumeTrend(shipments))
                 .build();
     }
-//        System.out.println("Shipments received: " + shipments);
-//        System.out.println("Admin shipment count = " + shipments.size());
-//        return DashboardAnalyticsResponse.builder()
-//                .volumeByMonth(getVolumeByMonth(shipments))
-//                .averageDeliveryTime(getAverageDeliveryTime(shipments))
-//                .deliveryActivity24h(getDeliveryActivity24h(shipments))
-//                .onTimePerformance(getOnTimePerformance(shipments))
-//                .build();
-//        return DashboardAnalyticsResponse.builder()
-//                .overview(getOverview(shipments))
-//                .deliveryActivity24h(getDeliveryActivity24h(shipments))
-//                .deliveryPerformance(getDeliveryPerformance(shipments))
-//                .shipmentStatus(getShipmentStatus(shipments))
-//                .topRoutes(getTopRoutes(shipments))
-////                .deliveryVolumeTrend(getVolumeByMonth(shipments))
-//                .deliveryVolumeTrend(getDeliveryVolumeTrend(shipments))
-//                .build();
 
-
-//    @Override
-//    public DashboardAnalyticsResponse getBusinessDashboard(Long businessClientId) {
-//
-//        List<ShipmentAnalyticsDataResponse> shipments =
-//                shipmentClient.getBusinessShipmentsForAnalytics(
-//                        businessClientId
-//                );
-//
-////        return DashboardAnalyticsResponse.builder()
-////                .volumeByMonth(getVolumeByMonth(shipments))
-////                .averageDeliveryTime(getAverageDeliveryTime(shipments))
-////                .deliveryActivity24h(getDeliveryActivity24h(shipments))
-////                .onTimePerformance(getOnTimePerformance(shipments))
-////                .build();
-//
-//        return DashboardAnalyticsResponse.builder()
-//                .overview(getOverview(shipments))
-//                .deliveryActivity24h(getDeliveryActivity24h(shipments))
-//                .deliveryPerformance(getDeliveryPerformance(shipments))
-//                .shipmentStatus(getShipmentStatus(shipments))
-//                .topRoutes(getTopRoutes(shipments))
-////                .deliveryVolumeTrend(getVolumeByMonth(shipments))
-//                .deliveryVolumeTrend(getDeliveryVolumeTrend(shipments))
-//                .build();
-//    }
 
 @Override
 public DashboardAnalyticsResponse getBusinessDashboard(
@@ -205,11 +158,7 @@ private void validateDateRange(
                 .filter(s -> "FAILED_DELIVERY".equals(s.getStatus()))
                 .count();
 
-//        long onTime = shipments.stream()
-//                .filter(s -> s.getDeliveredAt() != null)
-//                .filter(s -> s.getEstimatedDeliveryAt() != null)
-//                .filter(s -> !s.getDeliveredAt().isAfter(s.getEstimatedDeliveryAt()))
-//                .count();
+
         long onTime = shipments.stream()
                 .filter(s -> "DELIVERED".equals(s.getStatus()))
                 .filter(s -> s.getDeliveredAt() != null)
@@ -235,34 +184,6 @@ private void validateDateRange(
     }
 
 
-//        private DeliveryPerformanceResponse getDeliveryPerformance(
-//                List<ShipmentAnalyticsDataResponse> shipments
-//        ) {
-//
-//            long onTime = shipments.stream()
-//                    .filter(s -> "DELIVERED".equals(s.getStatus()))
-//                    .filter(s -> s.getDeliveredAt() != null)
-//                    .filter(s -> s.getEstimatedDeliveryAt() != null)
-//                    .filter(s -> !s.getDeliveredAt().isAfter(s.getEstimatedDeliveryAt()))
-//                    .count();
-//
-//            long delayed = shipments.stream()
-//                    .filter(s -> "DELIVERED".equals(s.getStatus()))
-//                    .filter(s -> s.getDeliveredAt() != null)
-//                    .filter(s -> s.getEstimatedDeliveryAt() != null)
-//                    .filter(s -> s.getDeliveredAt().isAfter(s.getEstimatedDeliveryAt()))
-//                    .count();
-//
-//            long failed = shipments.stream()
-//                    .filter(s -> "FAILED_DELIVERY".equals(s.getStatus()))
-//                    .count();
-//
-//            return DeliveryPerformanceResponse.builder()
-//                    .onTime(onTime)
-//                    .delayed(delayed)
-//                    .failed(failed)
-//                    .build();
-//        }
 
     private DeliveryPerformanceResponse getDeliveryPerformance(
             List<ShipmentAnalyticsDataResponse> shipments
@@ -351,24 +272,7 @@ private void validateDateRange(
 
 
 
-//    private List<ShipmentStatusResponse> getShipmentStatus(
-//            List<ShipmentAnalyticsDataResponse> shipments
-//    ) {
-//
-//        return shipments.stream()
-//                .collect(Collectors.groupingBy(
-//                        ShipmentAnalyticsDataResponse::getStatus,
-//                        Collectors.counting()
-//                ))
-//                .entrySet()
-//                .stream()
-//                .map(entry -> ShipmentStatusResponse.builder()
-//                        .status(entry.getKey())
-//                        .count(entry.getValue())
-//                        .build())
-//                .sorted(Comparator.comparingLong(ShipmentStatusResponse::getCount).reversed())
-//                .toList();
-//    }
+
 private List<ShipmentStatusResponse> getShipmentStatus(
         List<ShipmentAnalyticsDataResponse> shipments
 ) {
@@ -420,31 +324,7 @@ private List<ShipmentStatusResponse> getShipmentStatus(
     );
 }
 
-//    private List<TopRouteResponse> getTopRoutes(
-//            List<ShipmentAnalyticsDataResponse> shipments
-//    ) {
-//
-//        return shipments.stream()
-//                .filter(s -> s.getOriginHub() != null && s.getDestinationHub() != null)
-//                .collect(Collectors.groupingBy(
-//                        s -> s.getOriginHub() + " -> " + s.getDestinationHub(),
-//                        Collectors.counting()
-//                ))
-//                .entrySet()
-//                .stream()
-//                .map(entry -> {
-//                    String[] route = entry.getKey().split(" -> ", 2);
-//
-//                    return TopRouteResponse.builder()
-//                            .origin(route[0])
-//                            .destination(route[1])
-//                            .shipments(entry.getValue())
-//                            .build();
-//                })
-//                .sorted(Comparator.comparingLong(TopRouteResponse::getShipments).reversed())
-//                .limit(5)
-//                .toList();
-//    }
+
 
     private List<TopRouteResponse> getTopRoutes(
             List<ShipmentAnalyticsDataResponse> shipments
@@ -584,14 +464,14 @@ private List<ShipmentStatusResponse> getShipmentStatus(
                             .filter(s -> s.getDeliveredAt() != null)
                             .filter(s -> s.getDeliveredAt().getHour() == hour)
                             .count();
-//                    System.out.println("Shipments for activity: " + shipments.size());
+
                     return DeliveryActivity24hResponse.builder()
                             .hour(hour)
                             .pickups(pickups)
                             .deliveries(deliveries)
                             .build();
                 })
-//                .peek(item -> System.out.println(item))
+
                 .toList();
     }
 
@@ -622,62 +502,7 @@ private List<ShipmentStatusResponse> getShipmentStatus(
     }
 
 
-//    @Override
-//    public ResponseEntity<byte[]> exportAdminDashboardPdf() {
-//
-//        List<ShipmentAnalyticsDataResponse> shipments =
-//                shipmentClient.getAllShipmentsForAnalytics();
-//
-//        DashboardAnalyticsResponse dashboard =
-//                getAdminDashboard();
-//
-//        try {
-//
-//            ByteArrayOutputStream out = new ByteArrayOutputStream();
-//
-//            Document document = new Document();
-//
-//            PdfWriter.getInstance(document, out);
-//
-//            document.open();
-//
-//            document.add(new Paragraph("Shipment Analytics Report"));
-//            document.add(new Paragraph(" "));
-//
-//            document.add(new Paragraph("Total Shipments : " + shipments.size()));
-//
-//            document.add(new Paragraph(
-//                    "Delivered : " +
-//                            shipments.stream()
-//                                    .filter(s -> "DELIVERED".equals(s.getStatus()))
-//                                    .count()
-//            ));
-//
-////            document.add(new Paragraph(
-////                    "Average Delivery Records : "
-////                            + dashboard.getAverageDeliveryTime().size()
-////            ));
-//
-////            document.add(new Paragraph(
-////                    "On-Time Performance : "
-////                            + dashboard.getOnTimePerformance().get(0).getRate()
-////                            + "%"
-////            ));
-//
-//            document.close();
-//
-//            return ResponseEntity.ok()
-//                    .header(
-//                            HttpHeaders.CONTENT_DISPOSITION,
-//                            "attachment; filename=analytics-report.pdf"
-//                    )
-//                    .contentType(MediaType.APPLICATION_PDF)
-//                    .body(out.toByteArray());
-//
-//        } catch (DocumentException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
 
 @Override
 public ResponseEntity<byte[]> exportAdminDashboardPdf(
@@ -687,22 +512,7 @@ public ResponseEntity<byte[]> exportAdminDashboardPdf(
 
     validateDateRange(startDate, endDate);
 
-//    LocalDateTime startDateTime =
-//            startDate.atStartOfDay();
-//
-//    LocalDateTime endDateTime =
-//            endDate.atTime(
-//                    23,
-//                    59,
-//                    59,
-//                    999999999
-//            );
-//
-//    List<ShipmentAnalyticsDataResponse> shipments =
-//            shipmentClient.getAllShipmentsForAnalyticsByDateRange(
-//                    startDateTime,
-//                    endDateTime
-//            );
+
 
     DashboardAnalyticsResponse dashboard =
             getAdminDashboard(
@@ -816,68 +626,7 @@ public ResponseEntity<byte[]> exportAdminDashboardPdf(
     }
 }
 
-//    @Override
-//    public ResponseEntity<byte[]> exportBusinessDashboardPdf(
-//            Long businessClientId
-//    ) {
-//
-//        List<ShipmentAnalyticsDataResponse> shipments =
-//                shipmentClient.getBusinessShipmentsForAnalytics(
-//                        businessClientId
-//                );
-//
-//        DashboardAnalyticsResponse dashboard =
-//                getBusinessDashboard(businessClientId);
-//
-//        try {
-//
-//            ByteArrayOutputStream out = new ByteArrayOutputStream();
-//
-//            Document document = new Document();
-//
-//            PdfWriter.getInstance(document, out);
-//
-//            document.open();
-//
-//            document.add(new Paragraph("Business Shipment Analytics Report"));
-//            document.add(new Paragraph(" "));
-//
-//            document.add(new Paragraph(
-//                    "Total Shipments : " + shipments.size()
-//            ));
-//
-//            document.add(new Paragraph(
-//                    "Delivered : " +
-//                            shipments.stream()
-//                                    .filter(s -> "DELIVERED".equals(s.getStatus()))
-//                                    .count()
-//            ));
-//
-////            document.add(new Paragraph(
-////                    "Average Delivery Records : "
-////                            + dashboard.getAverageDeliveryTime().size()
-////            ));
-//
-////            document.add(new Paragraph(
-////                    "On-Time Performance : "
-////                            + dashboard.getOnTimePerformance().get(0).getRate()
-////                            + "%"
-////            ));
-//
-//            document.close();
-//
-//            return ResponseEntity.ok()
-//                    .header(
-//                            HttpHeaders.CONTENT_DISPOSITION,
-//                            "attachment; filename=business-analytics-report.pdf"
-//                    )
-//                    .contentType(MediaType.APPLICATION_PDF)
-//                    .body(out.toByteArray());
-//
-//        } catch (DocumentException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
 
 @Override
 public ResponseEntity<byte[]> exportBusinessDashboardPdf(

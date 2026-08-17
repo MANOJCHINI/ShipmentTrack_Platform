@@ -139,12 +139,7 @@ public class RouteService {
             shipmentRouteRepository.save(
                     shipmentRoute
             );
-            System.out.println(
-                    "Saved Hub : "
-                            + hub.getHubName()
-                            + " Order : "
-                            + shipmentRoute.getStopOrder()
-            );
+
         }
     }
     public void markCurrentHubReached(Long shipmentId) {

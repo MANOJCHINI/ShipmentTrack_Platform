@@ -129,41 +129,8 @@ export function useMarkAllNotificationsRead() {
       }),
   });
 }
-export function useTickets() {
-  return useQuery({
-    queryKey: queryKeys.tickets,
-    queryFn: ticketsApi.list,
-  });
-}
-export function useTicket(id) {
-  return useQuery({
-    queryKey: id ? queryKeys.ticket(id) : ["tickets", "none"],
-    queryFn: () => ticketsApi.getById(id),
-    enabled: !!id,
-  });
-}
-export function useReplyTicket() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, body, author }) => ticketsApi.reply(id, body, author),
-    onSuccess: () => {
-      qc.invalidateQueries({
-        queryKey: queryKeys.tickets,
-      });
-    },
-  });
-}
-export function useUpdateTicketStatus() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, status }) => ticketsApi.updateStatus(id, status),
-    onSuccess: () => {
-      qc.invalidateQueries({
-        queryKey: queryKeys.tickets,
-      });
-    },
-  });
-}
+
+
 export function useTeam() {
   return useQuery({
     queryKey: queryKeys.team,
@@ -232,7 +199,7 @@ export function useRoutes() {
     queryFn: routesApi.list,
   });
 }
-// ==================================
+
 export function useFindRoute(originHubId, destinationHubId) {
   return useQuery({
     queryKey: ["route-finder", originHubId, destinationHubId],
@@ -248,7 +215,7 @@ export function useHubs() {
     queryFn: () => shipmentsApi.getRouteHubs(),
   });
 }
-// =============================================================
+
 export function usePodRecords() {
   return useQuery({
     queryKey: queryKeys.podRecords,

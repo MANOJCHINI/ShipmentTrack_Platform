@@ -177,7 +177,7 @@ function MiniStat({ label, value, icon: Icon, class: cls }) {
 }
 
 function FeaturedTrackingCard({ shipment }) {
-  // =================================================================
+  
   const cancelMutation = useCancelShipmentByCustomer();
 
   const [showCancelForm, setShowCancelForm] = useState(false);
@@ -189,14 +189,14 @@ function FeaturedTrackingCard({ shipment }) {
   const canCancel =
     !shipment.cancelledByCustomer &&
     (shipmentStatus === "CREATED" || shipmentStatus === "PICKED_UP");
-  // =======================================================================
+  
   const etaLabel = relativeDay(shipment.estimatedDeliveryAt ?? shipment.estimatedDelivery);
   const isOutForDelivery = shipment.status === "OUT_FOR_DELIVERY" || shipment.status === "out_for_delivery";
 const isDelivered =
   shipment.status === "DELIVERED" || shipment.status === "delivered";
   
 
-  // const progress = isDelivered ? 100 : (shipment.progress ?? 60);
+  
   
   const handleCancelShipment = async () => {
     const reason = cancelReason.trim();

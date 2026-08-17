@@ -4,7 +4,7 @@ import  AdminDashboard  from "./admin-dashboard";
 import  OperatorDashboard  from "./operator-dashboard";
 import  BusinessDashboard  from "./business-dashboard";
 import  CustomerDashboard  from "./customer-dashboard";
-import  SupportDashboard  from "./support-dashboard";
+
 
 export default function DashboardRouter() {
   const { user } = useAuth();
@@ -20,10 +20,9 @@ export default function DashboardRouter() {
       return <BusinessDashboard />;
     case "customer":
       return <CustomerDashboard />;
-    case "support_agent":
-      return <SupportDashboard />;
+    
     default:
-    // return <AdminDashboard />;
+    
       return <div>Unauthorized</div>;
   }
 

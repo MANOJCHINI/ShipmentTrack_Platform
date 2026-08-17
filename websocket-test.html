@@ -15,18 +15,18 @@ function connect() {
 
     stompClient.connect({}, function () {
 
-        console.log("Connected");
+        
 
         stompClient.subscribe('/topic/driver-location', function (message) {
-            console.log("Driver Location:", message.body);
+            
         });
 
         stompClient.subscribe('/topic/tracking', function (message) {
-            console.log("Tracking:", message.body);
+            
         });
 
         stompClient.subscribe('/topic/notifications', function (message) {
-            console.log("Notification:", message.body);
+            
         });
     });
 }

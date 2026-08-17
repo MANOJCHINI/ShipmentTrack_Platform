@@ -61,7 +61,7 @@ export function TrackPage() {
     setSubmitted(trackingInput.trim());
   };
 
-  // const tracking = trackQuery.data;
+  
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -103,11 +103,7 @@ export function TrackPage() {
                 Track <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             </form>
-            {/* ===================================================================== */}
-            {/* <p className="text-center text-xs text-muted-foreground">
-              Try: STP-9F4K-8821 · STP-2H7M-4410 · STP-5C2P-7733
-            </p> */}
-            {/* ========================================================= */}
+            
           </div>
         </div>
       </Card>

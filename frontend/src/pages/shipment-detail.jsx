@@ -65,10 +65,7 @@ export function ShipmentDetailPage() {
     refetchInterval: 5000,
   });
 
-  // const tracking = useQuery({
-  //   queryKey: ["shipment-tracking", id],
-  //   queryFn: () => shipmentsApi.getTracking(id),
-  // });
+ 
 
   const trackingData = tracking.data;
   const navigate = useNavigate();
@@ -155,16 +152,12 @@ const isCustomerCancelled = shipment.cancelledByCustomer === true;
           {/* Map */}
           <Card className="overflow-hidden">
             <div className="relative h-[700px]">
-              {/* =================================================== */}
-              {/* <MapView
-                shipment={shipment}
-                className="!rounded-none h-[380px]"
-              /> */}
+              
               <MapView
                 tracking={trackingData}
                 className="!rounded-none h-[700px]"
               />
-              {/* ====================================================== */}
+              
             </div>
             <CardContent className="p-4">
               <div className="flex items-center justify-between text-sm">
@@ -183,7 +176,7 @@ const isCustomerCancelled = shipment.cancelledByCustomer === true;
               </div>
               <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
                 <span className="flex items-center gap-1">
-                  {/* <MapPin className="h-3 w-3" /> {shipment.currentLocation.name} */}
+                  
                 </span>
                 <span className="flex items-center gap-1">
                   <Navigation className="h-3 w-3" /> {shipment.receiverCity}

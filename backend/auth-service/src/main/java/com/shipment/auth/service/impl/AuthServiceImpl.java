@@ -106,45 +106,7 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
 
-//        // Generate OTPs
-//        String emailOtp = otpGenerator.generateOtp();
-//        String phoneOtp = otpGenerator.generateOtp();
-//
-//        // Save Email OTP
-//        verificationTokenRepository.save(
-//                VerificationToken.builder()
-//                        .userId(user.getId())
-//                        .otp(emailOtp)
-//                        .type(VerificationType.EMAIL)
-//                        .expiryTime(LocalDateTime.now().plusMinutes(10))
-//                        .used(false)
-//                        .build()
-//        );
-//
-//        // Save Phone OTP
-//        verificationTokenRepository.save(
-//                VerificationToken.builder()
-//                        .userId(user.getId())
-//                        .otp(phoneOtp)
-//                        .type(VerificationType.PHONE)
-//                        .expiryTime(LocalDateTime.now().plusMinutes(10))
-//                        .used(false)
-//                        .build()
-//        );
 
-//        // Temporary for testing
-//        System.out.println("EMAIL OTP = " + emailOtp);
-//        System.out.println("PHONE OTP = " + phoneOtp);
-
-//        emailService.sendEmail(
-//                user.getEmail(),
-//                "Email Verification OTP",
-//                "Your verification OTP is: "
-//                        + emailOtp
-//                        + "\n\nThis OTP will expire in 10 minutes."
-//        );
-//
-//        System.out.println("PHONE OTP = " + phoneOtp);
 
         return ApiResponse.builder()
                 .success(true)
@@ -154,16 +116,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
-//    @Override
-//    public ApiResponse verifyEmailOtp(
-//            VerifyEmailOtpRequest request
-//    ) {
-//
-//        return ApiResponse.builder()
-//                .success(true)
-//                .message("Email OTP verification not implemented yet")
-//                .build();
-//    }
+
 
 
 
@@ -336,131 +289,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-//   here some changes done
-//@Override
-//public ApiResponse verifyEmailOtp(
-//        VerifyEmailOtpRequest request
-//) {
-//
-//    User user = userRepository.findByEmail(
-//            request.getEmail().trim().toLowerCase()
-//    ).orElseThrow(() ->
-//            new IllegalArgumentException("User not found")
-//    );
-//
-//    VerificationToken token =
-//            verificationTokenRepository
-//                    .findByUserIdAndOtpAndType(
-//                            user.getId(),
-//                            request.getOtp(),
-//                            VerificationType.EMAIL
-//                    )
-//                    .orElseThrow(() ->
-//                            new IllegalArgumentException("Invalid OTP")
-//                    );
-//
-//    if (Boolean.TRUE.equals(token.getUsed())) {
-//        throw new IllegalArgumentException(
-//                "OTP already used"
-//        );
-//    }
-//
-//
-//    if (token.getExpiryTime().isBefore(LocalDateTime.now())) {
-//        throw new IllegalArgumentException(
-//                "OTP has expired"
-//        );
-//    }
-//
-//    user.setEmailVerified(true);
-//
-//    if (Boolean.TRUE.equals(user.getPhoneVerified())) {
-//        user.setActive(true);
-//    }
-//
-//    userRepository.save(user);
-//
-//    token.setUsed(true);
-//    verificationTokenRepository.save(token);
-//
-//    return ApiResponse.builder()
-//            .success(true)
-//            .message("Email verified successfully")
-//            .build();
-//}
 
-//    @Override
-//    public ApiResponse verifyPhoneOtp(
-//            VerifyPhoneOtpRequest request
-//    ) {
-//
-//        return ApiResponse.builder()
-//                .success(true)
-//                .message("Phone OTP verification not implemented yet")
-//                .build();
-//    }
-//    phone otp varification
-//@Override
-//public ApiResponse verifyPhoneOtp(
-//        VerifyPhoneOtpRequest request
-//) {
-//
-//    User user = userRepository.findByPhone(
-//            request.getPhone().trim()
-//    ).orElseThrow(() ->
-//            new IllegalArgumentException("User not found")
-//    );
-//
-//    VerificationToken token =
-//            verificationTokenRepository
-//                    .findByUserIdAndOtpAndType(
-//                            user.getId(),
-//                            request.getOtp().trim(),
-//                            VerificationType.PHONE
-//                    )
-//                    .orElseThrow(() ->
-//                            new IllegalArgumentException("Invalid OTP")
-//                    );
-//
-//    if (Boolean.TRUE.equals(token.getUsed())) {
-//        throw new IllegalArgumentException(
-//                "OTP already used"
-//        );
-//    }
-//
-//
-//
-////    boolean expired =
-////            token.getExpiryTime().isBefore(LocalDateTime.now());
-////
-////    System.out.println("Expired = " + expired);
-//
-//    if (token.getExpiryTime().isBefore(LocalDateTime.now())) {
-//        throw new IllegalArgumentException(
-//                "OTP has expired"
-//        );
-//    }
-//
-//    user.setPhoneVerified(true);
-//
-//    if (Boolean.TRUE.equals(user.getEmailVerified())) {
-//        user.setActive(true);
-//    }
-//
-//    userRepository.save(user);
-//
-//    token.setUsed(true);
-//    verificationTokenRepository.save(token);
-//
-//    return ApiResponse.builder()
-//            .success(true)
-//            .message("Phone verified successfully")
-//            .build();
-//
-//
-//
-//
-//  }
 
     @Override
     public LoginResponse login(

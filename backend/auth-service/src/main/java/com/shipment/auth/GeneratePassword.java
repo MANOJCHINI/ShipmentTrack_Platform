@@ -6,8 +6,7 @@ public class GeneratePassword {
 
         String password = "Manoj123!@#";
 
-        System.out.println("Password : " + password);
-        System.out.println("BCrypt   : " + encoder.encode(password));
+        
     }
 
 }

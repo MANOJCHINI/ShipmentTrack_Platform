@@ -13,7 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 
-@FeignClient(name = "SHIPMENTMANAGEMENT-SERVICE")
+import com.shipment.analytics.config.FeignClientConfig;
+
+@FeignClient(name = "SHIPMENTMANAGEMENT-SERVICE", configuration = FeignClientConfig.class)
 public interface ShipmentClient {
 
     @GetMapping("/api/shipments/analytics")
@@ -42,6 +44,36 @@ public interface ShipmentClient {
 
             @PathVariable("businessClientId")
             Long businessClientId,
+
+            @RequestParam("startDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+
+            @RequestParam("endDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate
+    );
+
+    @GetMapping("/api/shipments/analytics/customer/{customerId}/shipments/range")
+    List<ShipmentAnalyticsDataResponse> getCustomerShipmentsForAnalyticsByDateRange(
+
+            @PathVariable("customerId")
+            Long customerId,
+
+            @RequestParam("startDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime startDate,
+
+            @RequestParam("endDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime endDate
+    );
+
+    @GetMapping("/api/shipments/analytics/driver/{driverId}/shipments/range")
+    List<ShipmentAnalyticsDataResponse> getDriverShipmentsForAnalyticsByDateRange(
+
+            @PathVariable("driverId")
+            Long driverId,
 
             @RequestParam("startDate")
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

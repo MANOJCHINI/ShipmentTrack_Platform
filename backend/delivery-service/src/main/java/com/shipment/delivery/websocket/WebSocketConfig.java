@@ -1,4 +1,4 @@
-package com.shipment.delivery.config;
+package com.shipment.delivery.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

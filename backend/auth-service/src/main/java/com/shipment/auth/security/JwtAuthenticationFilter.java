@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter
 
         String email =
                 jwtService.extractUsername(token);
-        System.out.println("EMAIL FROM TOKEN = " + email);
+        
 
         if (email != null &&
                 SecurityContextHolder
@@ -56,8 +56,7 @@ public class JwtAuthenticationFilter
                     userDetailsService
                             .loadUserByUsername(email);
 
-            System.out.println("TOKEN VALID = " +
-                    jwtService.isTokenValid(token));
+           
 
             if (jwtService.isTokenValid(token)) {
 

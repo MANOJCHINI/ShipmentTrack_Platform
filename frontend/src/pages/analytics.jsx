@@ -513,8 +513,7 @@ function AnalyticsContent({
 
               <CardContent>
                 <ResponsiveContainer width="100%" height={260}>
-                  {/* <AreaChart data={data?.deliveryVolumeTrend ?? []}>
-                   */}
+                  
                   <AreaChart
                     data={data?.deliveryVolumeTrend ?? []}
                     margin={{
@@ -587,7 +586,7 @@ function AnalyticsContent({
 
 export function AnalyticsPage() {
   const { user } = useAuth();
-  console.log(user);
+  
 
   return user.role === "admin" ? (
     <AdminAnalyticsPage />
