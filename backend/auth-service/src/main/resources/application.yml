@@ -37,7 +37,7 @@ jwt:
 eureka:
   client:
     service-url:
-     defaultZone: http://shiptrackpro-eureka:8761/eureka/
+     defaultZone: https://shiptrackpro-eureka.onrender.com/eureka/
 
 #  jackson:
 #    serialization:
