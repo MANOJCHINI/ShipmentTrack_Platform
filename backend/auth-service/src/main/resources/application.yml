@@ -37,7 +37,7 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+     defaultZone: http://shiptrackpro-eureka:8761/eureka/
 
 #  jackson:
 #    serialization:

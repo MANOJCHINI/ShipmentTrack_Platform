@@ -1,0 +1,120 @@
+services:
+  eureka:
+    image: shiptrackpro-eureka:latest
+    container_name: shiptrackpro-eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - shiptrackpro-network
+
+  delivery-reports-service:
+    container_name: delivery-reports-service
+    depends_on:
+      eureka:
+        condition: service_started
+    image: delivery-reports-service:latest
+    networks:
+      shiptrackpro-network:
+    ports:
+      - "8087:8087"
+
+  shipmentmanagement-service:
+    image: shipmentmanagement-service:latest
+    container_name: shipmentmanagement-service
+    ports:
+      - "8085:8085"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://shiptrackpro-eureka:8761/eureka/
+
+  analytics-service:
+    image: analytics-service:latest
+    container_name: analytics-service
+    ports:
+      - "8086:8086"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+
+  delivery-service:
+    image: delivery-service:latest
+    container_name: delivery-service
+    ports:
+      - "8082:8082"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://shiptrackpro-eureka:8761/eureka/
+
+  pod-service:
+    image: pod-service:latest
+    container_name: pod-service
+    ports:
+      - "8084:8084"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://shiptrackpro-eureka:8761/eureka/
+
+  auth-service:
+    image: shiptrackpro-auth:latest
+    container_name: shiptrackpro-auth
+    ports:
+      - "8081:8081"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env
+
+  notification-service:
+    image: notification-service:latest
+    container_name: notification-service
+    ports:
+      - "8083:8083"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env
+
+  api-gateway:
+    image: api-gateway:latest
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - eureka
+    env_file:
+      - .env    
+
+  frontend:
+    image: shiptrackpro-frontend:latest
+    container_name: shiptrackpro-frontend
+    ports:
+      - "5173:80"
+    networks:
+      - shiptrackpro-network
+    depends_on:
+      - auth-service
+networks:
+  shiptrackpro-network:
+    driver: bridge
